@@ -31,7 +31,7 @@ export default class News extends Component {
     }
 
     async update_news() {
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pagesize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state?.page}&pagesize=${this.props.pageSize}`;
 
         this.setState({ loading: true });
         let data = await fetch(url);
@@ -50,14 +50,14 @@ export default class News extends Component {
     }
 
     fetchMoreData = async () => {
-        const nextPage = this.state.page + 1;
+        const nextPage = this.state?.page + 1;
         const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${nextPage}&pagesize=${this.props.pageSize}`;
         let data = await fetch(url);
         let parsedData = await data.json();
         this.setState({
-            articles: this.state.articles.concat(parsedData.articles),
+            articles: this.state?.articles.concat(parsedData.articles),
             totalResults: parsedData.totalResults,
-            page: this.state.page + 1, // Corrected increment
+            page: this.state?.page + 1, // Corrected increment
         });
         document.title =
             'IndoZone - ' + this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1);
@@ -75,17 +75,17 @@ export default class News extends Component {
                 </div>
                 <div className='text-end mb-4 container' > {new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
 
-                {this.state.loading && <Spinner />}
+                {this.state?.loading && <Spinner />}
                 <InfiniteScroll
-                    dataLength={this.state.articles?.length}
+                    dataLength={this.state?.articles?.length}
                     next={this.fetchMoreData}
-                    hasMore={this.state.articles?.length !== this.state.totalResults}
+                    hasMore={this.state?.articles?.length !== this.state?.totalResults}
                     loader={<Spinner />}
                 >
                     <div className="container my-3">
                         <div className="row">
                             {/* // ! WHEN NOT LOADING THEN ONLY DISPLAY CONTENT */}
-                            {this.state.articles.map((elem) => {
+                            {this.state?.articles?.map((elem) => {
                                 return <div key={elem.title} className="col-md-4 mb-5">
                                     <NewsItem
                                         title={elem.title === null ? "" : elem.title.slice(0, 32)}
