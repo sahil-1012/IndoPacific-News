@@ -61,8 +61,8 @@ export default class News extends Component {
         });
         document.title =
             'IndoZone - ' + this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1);
-        console.log(this.state.articles.length);
-        console.log(this.state.totalResults);
+        console.log(this.state?.articles?.length);
+        console.log(this.state?.totalResults);
     };
 
 
